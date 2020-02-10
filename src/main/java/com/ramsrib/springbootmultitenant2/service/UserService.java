@@ -2,6 +2,7 @@ package com.ramsrib.springbootmultitenant2.service;
 
 import com.ramsrib.springbootmultitenant2.model.User;
 import com.ramsrib.springbootmultitenant2.repository.UserRepository;
+import com.ramsrib.springbootmultitenant2.service.aspect.BaseService;
 import com.ramsrib.springbootmultitenant2.tenant.TenantContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
@@ -15,7 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class UserService implements ApplicationRunner {
+public class UserService implements ApplicationRunner, BaseService {
 
   private final UserRepository userRepository;
   @PersistenceContext
@@ -55,4 +56,8 @@ public class UserService implements ApplicationRunner {
     TenantContext.clear();
   }
 
+  @Override
+  public EntityManager getEntityManager() {
+    return this.entityManager;
+  }
 }

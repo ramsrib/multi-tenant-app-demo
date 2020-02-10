@@ -12,14 +12,14 @@ import org.springframework.stereotype.Component;
 
 @Aspect
 @Component
-public class UserServiceAspect {
+public class ServiceAspect {
 
   private final Logger log = LoggerFactory.getLogger(this.getClass());
 
-  // only applicable to user service
-  @Before("execution(* com.ramsrib.springbootmultitenant2.service.UserService.*(..)) && !execution(* com.ramsrib.springbootmultitenant2.service.UserService.run(..)) && target(userService)")
-  public void aroundExecution(JoinPoint pjp, UserService userService) throws Throwable {
-    org.hibernate.Filter filter = userService.entityManager.unwrap(Session.class).enableFilter("tenantFilter");
+  // only applicable to  service
+  @Before("execution(* com.ramsrib.springbootmultitenant2.service.*.*(..)) && !execution(* com.ramsrib.springbootmultitenant2.service.*.run(..)) && target(baseService)")
+  public void aroundExecution(JoinPoint pjp, BaseService baseService) throws Throwable {
+    org.hibernate.Filter filter = baseService.getEntityManager().unwrap(Session.class).enableFilter("tenantFilter");
     filter.setParameter("tenantId", TenantContext.getCurrentTenant());
     filter.validate();
   }
