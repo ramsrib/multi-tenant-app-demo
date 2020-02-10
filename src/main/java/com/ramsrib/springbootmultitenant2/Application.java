@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.orm.jpa.HibernateSettings;
 import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
 import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
 import org.springframework.context.annotation.Bean;
@@ -30,7 +31,7 @@ public class Application {
   @Bean
   public LocalContainerEntityManagerFactoryBean entityManagerFactory(EntityManagerFactoryBuilder factory, DataSource dataSource, JpaProperties properties) {
     Map<String, Object> jpaProperties = new HashMap<>();
-    jpaProperties.putAll(properties.getHibernateProperties(dataSource));
+    jpaProperties.putAll(properties.getHibernateProperties(new HibernateSettings()));
     jpaProperties.put("hibernate.ejb.interceptor", hibernateInterceptor());
     return factory.dataSource(dataSource).packages("com.ramsrib").properties(jpaProperties).build();
   }
