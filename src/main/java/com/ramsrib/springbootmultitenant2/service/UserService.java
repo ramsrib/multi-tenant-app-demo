@@ -47,6 +47,12 @@ public class UserService implements ApplicationRunner, BaseService {
     userRepository.deleteById(userId);
   }
 
+  @Transactional
+  public List<User> find11111() {
+    return userRepository.find11111();
+  }
+
+
   @Override
   public void run(ApplicationArguments applicationArguments) throws Exception {
     TenantContext.setCurrentTenant("tenant1");
