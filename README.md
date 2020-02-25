@@ -21,7 +21,7 @@ Explanation:
 * Custom Entity interceptor (using `EmptyInterceptor`) class which sets the tenantId value during the save/delete/flush-dirty entity events.
 * Entity class should implement `TenantSupport` interface for the Entity interceptor to work. 
 
-Use：
+Usage：
 * curl -X POST   http://localhost:8080/ -H 'Content-Type: application/json' -H 'X-TenantID: test2' -d '{"firstName":"king","username":"wangsoft","lastName":"soft"}'
 * curl -X GET   http://localhost:8080/ -H 'Content-Type: application/json' -H 'X-TenantID: test2'
 * curl -X POST   http://localhost:8080/ -H 'Content-Type: application/json' -H 'X-TenantID: test3' -d '{"firstName":"working","username":"wangsoft","lastName":"now"}'
