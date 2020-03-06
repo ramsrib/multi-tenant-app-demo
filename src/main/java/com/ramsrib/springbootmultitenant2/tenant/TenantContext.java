@@ -2,7 +2,7 @@ package com.ramsrib.springbootmultitenant2.tenant;
 
 public class TenantContext {
 
-  private static ThreadLocal<String> currentTenant = new ThreadLocal<>();
+  private static ThreadLocal<String> currentTenant = new InheritableThreadLocal<>();
 
   public static String getCurrentTenant() {
     return currentTenant.get();
