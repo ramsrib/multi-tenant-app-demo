@@ -27,16 +27,23 @@ public class TenantFilter implements Filter {
   public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
     HttpServletResponse response = (HttpServletResponse) servletResponse;
     HttpServletRequest request = (HttpServletRequest) servletRequest;
-    String tenantHeader = request.getHeader(TENANT_HEADER);
-    if (tenantHeader != null && !tenantHeader.isEmpty()) {
-      TenantContext.setCurrentTenant(tenantHeader);
-    } else {
-      response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-      response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-      response.getWriter().write("{\"error\": \"No tenant supplied\"}");
-      response.getWriter().flush();
-      return;
+
+    if(request.getRequestURI().indexOf("/actuator/") >= 0) {
+      TenantContext.setCurrentTenant("actuator");
+    }else {
+      String tenantHeader = request.getHeader(TENANT_HEADER);
+      if (tenantHeader != null && !tenantHeader.isEmpty()) {
+        TenantContext.setCurrentTenant(tenantHeader);
+      } else {
+        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+        response.getWriter().write("{\"error\": \"No tenant supplied\"}");
+        response.getWriter().flush();
+        return;
+      }
     }
+
+
     filterChain.doFilter(servletRequest, servletResponse);
   }
 

@@ -18,8 +18,8 @@ import java.util.UUID;
 @Table(name = "user_info")
 @NoArgsConstructor
 @AllArgsConstructor
-@FilterDef(name = "tenantFilter", parameters = {@ParamDef(name = "tenantId", type = "string")})
-@Filter(name = "tenantFilter", condition = "tenant_id = :tenantId")
+//@FilterDef(name = "tenantFilter", parameters = {@ParamDef(name = "tenantId", type = "string")})
+//@Filter(name = "tenantFilter", condition = "tenant_id = :tenantId")
 public class User implements TenantSupport {
 
   @Id

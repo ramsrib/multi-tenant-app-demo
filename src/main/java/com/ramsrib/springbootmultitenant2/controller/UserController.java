@@ -28,6 +28,11 @@ public class UserController {
     return userService.listUsers();
   }
 
+  @GetMapping("filter")
+  public List<User> listFilters() {
+    return userService.find11111();
+  }
+
   @PostMapping
   public User createUser(@RequestBody User user) {
     return userService.createUser(user);
@@ -42,5 +47,6 @@ public class UserController {
   public void deleteUser(@PathVariable("id") String userId) {
     userService.deleteUser(userId);
   }
+
 
 }
